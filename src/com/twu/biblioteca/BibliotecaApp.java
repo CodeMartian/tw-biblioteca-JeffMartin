@@ -6,5 +6,8 @@ public class BibliotecaApp {
         BibliotecaLibrary bibliotecaLibrary = new BibliotecaLibrary();
         bibliotecaLibrary.setWelcomeMessage("Welcome to Biblioteca! Your one-stop-shop for books in Bangalore!");
         System.out.println(bibliotecaLibrary.getWelcomeMessage());
+        for (String book : bibliotecaLibrary.listAllBooks()) {
+            System.out.print(book + "\n");
+        }
     }
 }
