@@ -6,19 +6,17 @@ import java.util.Scanner;
 
 class Menu {
     private String menuOptionsMessage;
-    private int[] menuOptions = new int[1];
     private Library _library;
 
     Menu() {
         this.menuOptionsMessage = "Menu:\n\n";
         menuOptionsMessage += "1. Display a list of all books.\n";
-
-        this.menuOptions[0] = 1;
+        menuOptionsMessage += "0. Exit Program.\n";
 
         this._library = new Library();
     }
 
-    void start() throws InvalidInputException {
+    void start() {
         displayWelcomeMessage();
         displayMenuOptions();
     }
@@ -35,7 +33,7 @@ class Menu {
         return 0;
     }
 
-    private void displayMenuOptions() throws InvalidInputException {
+    private void displayMenuOptions() {
         int readInput;
         System.out.println(this.menuOptionsMessage);
 
@@ -54,6 +52,7 @@ class Menu {
     }
 
     void validateInput(int input) throws InvalidInputException {
+        int[] menuOptions = new int[] {0, 1};
         for (int option : menuOptions) {
             if (input == option) {
                 return;
@@ -62,7 +61,7 @@ class Menu {
         throw new InvalidInputException();
     }
 
-    void selectOption(int input) throws InvalidInputException {
+    private void selectOption(int input) {
         switch (input) {
             case 1:
                 System.out.printf("%-35s %-25s %-35s \n\n", "Title", "Author", "Publication Date");
@@ -70,6 +69,11 @@ class Menu {
                 for (Book book : _library.getAllBooks()) {
                     System.out.printf("%-35s %-25s %-35s \n", book.getTitle(), book.getAuthor(), book.getPublicationDate());
                 }
+                break;
+            case 0:
+                System.out.println("Goodbye!");
+                System.exit(0);
+
         }
         displayMenuOptions();
     }
