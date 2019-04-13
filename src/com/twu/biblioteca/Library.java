@@ -25,8 +25,15 @@ public class Library {
         this.welcomeMessage = message;
     }
 
-    public void checkOutBook(Book book) {
-        books.remove(book);
+    public String checkOutBook(String bookTitle) {
+
+        for(Book book: books) {
+            if (book.getTitle().equals(bookTitle) && !book.isCheckedOut()){
+                book.setCheckedOut();
+                return "Thank you! You have successfully checked out '" + book.getTitle() + "'";
+            }
+        }
+        return "Sorry, this book is not available.";
     }
 
     public Book getBook(int i) {

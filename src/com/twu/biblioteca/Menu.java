@@ -23,25 +23,19 @@ class Menu {
         displayMenuOptions();
     }
 
-    private int readInput() {
-        try {
+    private String readInput() {
             System.out.println("Enter number here:");
             Scanner sc = new Scanner(System.in);
-            String input = sc.next();
+            String input = sc.nextLine();
             if(input.equals("x")) {
                 System.out.println("Goodbye!");
                 System.exit(0);
             }
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            System.out.println("Oops! That's not a number! Please try again.\n");
-            readInput();
-        }
-        return 0;
+            return input;
     }
 
     private void displayMenuOptions() {
-        int readInput;
+        String readInput;
         System.out.println(this.menuOptionsMessage);
 
         try {
@@ -58,25 +52,21 @@ class Menu {
         System.out.println("Welcome to Biblioteca! Your one-stop-shop for books in Bangalore!");
     }
 
-    void validateInput(int input) throws InvalidInputException {
-        int[] menuOptions = new int[] {0, 1, 2};
-        for (int option : menuOptions) {
-            if (input == option) {
+    void validateInput(String input) throws InvalidInputException {
+        String[] menuOptions = {"0", "1", "2"};
+        for (String option : menuOptions) {
+            if (input.equals(option)) {
                 return;
             }
         }
         throw new InvalidInputException();
     }
 
-    private void selectOption(int input) {
-        switch (input) {
-            case 1:
-                printBookList(_library.getAllBooks());
-                break;
-            case 2:
-                displayCheckOutBook();
-                break;
-
+    private void selectOption(String input) {
+        if ("1".equals(input)) {
+            printBookList(_library.getAllBooks());
+        } else if ("2".equals(input)) {
+            displayCheckOutBook();
         }
         displayMenuOptions();
     }
@@ -84,15 +74,16 @@ class Menu {
     private void displayCheckOutBook() {
         System.out.println("Here is a list of available books:\n\n");
         printBookList(_library.getAllBooks());
-        int option = readInput();
-        Book checkedOutBook = _library.getBook(option);
-        _library.checkOutBook(checkedOutBook);
-        System.out.println("Book #: " + option + " has been successfully checked out.");
+        String option = readInput();
+        //TODO: Get book by title, not by index.
+        String result = _library.checkOutBook(option);
+        System.out.println(result);
     }
 
     private void printBookList(ArrayList<Book> books) {
-        System.out.printf("%-35s %-25s %-35s \n\n", "Title", "Author", "Publication Date");
+        System.out.printf("%-5s %-35s %-25s %-35s \n\n", "", "Title", "Author", "Publication Date");
         for (Book book : books) {
+            //TODO: Remove index selectors.
             System.out.printf("%-5s %-35s %-25s %-35s \n", books.indexOf(book) + ".", book.getTitle(), book.getAuthor(), book.getPublicationDate());
         }
     }

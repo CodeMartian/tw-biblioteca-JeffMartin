@@ -37,11 +37,11 @@ public class BookTests {
         assertEquals("2019", result);
     }
 
-//    @Test
-//    public void checkOutBookShouldFlagBookAsCheckedOut() {
-//        //Act
-//        book.setCheckedOut();
-//        //Assert
-//        assertTrue(book.isCheckedOut());
-//    }
+    @Test
+    public void checkOutBookShouldFlagBookAsCheckedOut() {
+        //Act
+        book.setCheckedOut();
+        //Assert
+        assertTrue(book.isCheckedOut());
+    }
 }

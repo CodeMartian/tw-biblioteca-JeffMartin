@@ -15,18 +15,14 @@ public class MenuTests {
 
     @Test
     public void validateMenuInputShouldReturn() throws InvalidInputException {
-        //Arrange
-        int input = 1;
         //Act
-        menu.validateInput(input);
+        menu.validateInput("1");
     }
 
     @Test(expected = InvalidInputException.class)
     public void validateMenuInputShouldThrowException() throws InvalidInputException {
-        //Arrange
-        int input = 9999999;
         //Act
-        menu.validateInput(input);
+        menu.validateInput("Jeff");
     }
 
 

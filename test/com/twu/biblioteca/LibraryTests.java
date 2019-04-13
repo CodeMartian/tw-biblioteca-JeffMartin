@@ -21,7 +21,7 @@ public class LibraryTests {
     }
 
     @Test
-    public void testWelcomeMessageShouldReturnMessage() {
+    public void welcomeMessageShouldReturnMessage() {
         //Arrange
         String message = "Hello World!";
         //Act
@@ -31,7 +31,7 @@ public class LibraryTests {
     }
 
     @Test
-    public void testGetAllBooksShouldReturnListOfBooks() {
+    public void getAllBooksShouldReturnListOfBooks() {
         //Act
         ArrayList<Book> results = library.getAllBooks();
         //Assert
@@ -63,5 +63,30 @@ public class LibraryTests {
         assertThat(result.getAuthor(), is("Bruce A. Tate"));
         assertThat(result.getPublicationDate(), is("2010"));
 
+    }
+
+    @Test
+    public void checkOutBookShouldMarkBookAsCheckedOut() {
+        //Act
+        library.checkOutBook("Seven Languages in Seven Weeks");
+        //Assert
+        assertThat(library.getBook(0).isCheckedOut(), is(true));
+    }
+
+    @Test
+    public void checkOutBookShouldReturnSuccessMessage() {
+        //Act
+        String result = library.checkOutBook("Seven Languages in Seven Weeks");
+        //Assert
+        assertEquals("Thank you! You have successfully checked out 'Seven Languages in Seven Weeks'", result);
+    }
+
+    @Test
+    public void checkOutUnavailableBookShouldReturnBookIsNotAvailable() {
+        //Act
+        library.checkOutBook("Seven Languages in Seven Weeks");
+        String result = library.checkOutBook("Seven Languages in Seven Weeks");
+        //Assert
+        assertThat(result, is("Sorry, this book is not available."));
     }
 }
