@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class BookTests {
     private Book book;
@@ -35,4 +36,12 @@ public class BookTests {
         //Assert
         assertEquals("2019", result);
     }
+
+//    @Test
+//    public void checkOutBookShouldFlagBookAsCheckedOut() {
+//        //Act
+//        book.setCheckedOut();
+//        //Assert
+//        assertTrue(book.isCheckedOut());
+//    }
 }

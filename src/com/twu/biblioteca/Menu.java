@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.exceptions.InvalidInputException;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Menu {
@@ -11,7 +12,8 @@ class Menu {
     Menu() {
         this.menuOptionsMessage = "Menu:\n\n";
         menuOptionsMessage += "1. Display a list of all books.\n";
-        menuOptionsMessage += "0. Exit Program.\n";
+        menuOptionsMessage += "2. Checkout a book.\n";
+        menuOptionsMessage += "X. Exit Program.\n";
 
         this._library = new Library();
     }
@@ -23,8 +25,13 @@ class Menu {
 
     private int readInput() {
         try {
+            System.out.println("Enter number here:");
             Scanner sc = new Scanner(System.in);
             String input = sc.next();
+            if(input.equals("x")) {
+                System.out.println("Goodbye!");
+                System.exit(0);
+            }
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             System.out.println("Oops! That's not a number! Please try again.\n");
@@ -52,7 +59,7 @@ class Menu {
     }
 
     void validateInput(int input) throws InvalidInputException {
-        int[] menuOptions = new int[] {0, 1};
+        int[] menuOptions = new int[] {0, 1, 2};
         for (int option : menuOptions) {
             if (input == option) {
                 return;
@@ -64,17 +71,29 @@ class Menu {
     private void selectOption(int input) {
         switch (input) {
             case 1:
-                System.out.printf("%-35s %-25s %-35s \n\n", "Title", "Author", "Publication Date");
-
-                for (Book book : _library.getAllBooks()) {
-                    System.out.printf("%-35s %-25s %-35s \n", book.getTitle(), book.getAuthor(), book.getPublicationDate());
-                }
+                printBookList(_library.getAllBooks());
                 break;
-            case 0:
-                System.out.println("Goodbye!");
-                System.exit(0);
+            case 2:
+                displayCheckOutBook();
+                break;
 
         }
         displayMenuOptions();
+    }
+
+    private void displayCheckOutBook() {
+        System.out.println("Here is a list of available books:\n\n");
+        printBookList(_library.getAllBooks());
+        int option = readInput();
+        Book checkedOutBook = _library.getBook(option);
+        _library.checkOutBook(checkedOutBook);
+        System.out.println("Book #: " + option + " has been successfully checked out.");
+    }
+
+    private void printBookList(ArrayList<Book> books) {
+        System.out.printf("%-35s %-25s %-35s \n\n", "Title", "Author", "Publication Date");
+        for (Book book : books) {
+            System.out.printf("%-5s %-35s %-25s %-35s \n", books.indexOf(book) + ".", book.getTitle(), book.getAuthor(), book.getPublicationDate());
+        }
     }
 }

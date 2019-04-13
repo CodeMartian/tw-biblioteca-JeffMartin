@@ -3,6 +3,12 @@ package com.twu.biblioteca;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -25,29 +31,37 @@ public class LibraryTests {
     }
 
     @Test
-    public void testGetAllBookTitlesShouldReturnListOfBookTitles() {
+    public void testGetAllBooksShouldReturnListOfBooks() {
         //Act
-        String[] books = library.getAllBookTitles();
+        ArrayList<Book> results = library.getAllBooks();
         //Assert
-        assertNotNull(books);
-        assertEquals("Seven Languages in Seven Weeks", books[0]);
-        assertEquals("Testing Extreme Programming", books[1]);
-        assertEquals("Ubuntu Kung Fu", books[2]);
+        assertThat(results.get(0).getTitle(), is("Seven Languages in Seven Weeks"));
+        assertThat(results.get(0).getAuthor(), is("Bruce A. Tate"));
+        assertThat(results.get(0).getPublicationDate(), is("2010"));
+        assertThat(results.get(1).getTitle(), is("Testing Extreme Programming"));
+        assertThat(results.get(1).getAuthor(), is("Lisa Crispin"));
+        assertThat(results.get(1).getPublicationDate(), is("2003"));
+        assertThat(results.get(2).getTitle(), is("Ubuntu Kung Fu"));
+        assertThat(results.get(2).getAuthor(), is("Keir Thomas"));
+        assertThat(results.get(2).getPublicationDate(), is("2008"));
     }
 
     @Test
-    public void testGetAllBooksShouldReturnListOfBooks() {
+    public void getAllBooksShouldReturnListOfAvailableBooks() {
         //Act
-        Book[] results = library.getAllBooks();
+        ArrayList<Book> results = library.getAllBooks();
         //Assert
-        assertEquals("Seven Languages in Seven Weeks", results[0].getTitle());
-        assertEquals("Bruce A. Tate", results[0].getAuthor());
-        assertEquals("2010", results[0].getPublicationDate());
-        assertEquals("Testing Extreme Programming", results[1].getTitle());
-        assertEquals("Lisa Crispin", results[1].getAuthor());
-        assertEquals("2003", results[1].getPublicationDate());
-        assertEquals("Ubuntu Kung Fu", results[2].getTitle());
-        assertEquals("Keir Thomas", results[2].getAuthor());
-        assertEquals("2008", results[2].getPublicationDate());
+        assertThat(results.size(), is(3));
+    }
+
+    @Test
+    public void getBookShouldReturnBook() {
+        //Act
+        Book result = library.getBook(0);
+        //Assert
+        assertThat(result.getTitle(), is("Seven Languages in Seven Weeks"));
+        assertThat(result.getAuthor(), is("Bruce A. Tate"));
+        assertThat(result.getPublicationDate(), is("2010"));
+
     }
 }

@@ -4,7 +4,6 @@ import com.twu.biblioteca.exceptions.InvalidInputException;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
 
 public class MenuTests {
     private Menu menu;
@@ -15,22 +14,20 @@ public class MenuTests {
     }
 
     @Test
-    public void testValidateMenuInputShouldReturn() throws InvalidInputException {
+    public void validateMenuInputShouldReturn() throws InvalidInputException {
         //Arrange
         int input = 1;
         //Act
         menu.validateInput(input);
     }
 
-    @Test
-    public void testValidateMenuInputShouldThrowException() {
+    @Test(expected = InvalidInputException.class)
+    public void validateMenuInputShouldThrowException() throws InvalidInputException {
         //Arrange
         int input = 9999999;
         //Act
-        try {
-            menu.validateInput(input);
-        } catch (InvalidInputException ex) {
-            assertEquals("You have entered an invalid input. Please try again.", ex.getMessage());
-        }
+        menu.validateInput(input);
     }
+
+
 }

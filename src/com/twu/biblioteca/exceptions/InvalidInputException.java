@@ -2,7 +2,7 @@ package com.twu.biblioteca.exceptions;
 
 import java.io.IOException;
 
-public class InvalidInputException extends IOException {
+public class InvalidInputException extends Throwable {
     private String message;
 
     public InvalidInputException() {
