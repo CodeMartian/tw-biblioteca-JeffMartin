@@ -3,6 +3,8 @@ package com.twu.biblioteca;
 import com.twu.biblioteca.exceptions.InvalidInputException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 class Menu {
@@ -24,6 +26,7 @@ class Menu {
     }
 
     private String readInput() {
+        //TODO: Change number to input
             System.out.println("Enter number here:");
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
@@ -53,13 +56,10 @@ class Menu {
     }
 
     void validateInput(String input) throws InvalidInputException {
-        String[] menuOptions = {"0", "1", "2"};
-        for (String option : menuOptions) {
-            if (input.equals(option)) {
-                return;
-            }
+        List<String> menuOptions = Arrays.asList("0", "1", "2");
+        if (!menuOptions.contains(input)) {
+            throw new InvalidInputException();
         }
-        throw new InvalidInputException();
     }
 
     private void selectOption(String input) {
