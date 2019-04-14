@@ -13,6 +13,7 @@ class Menu {
         this.menuOptionsMessage = "Menu:\n\n";
         menuOptionsMessage += "1. Display a list of all books.\n";
         menuOptionsMessage += "2. Checkout a book.\n";
+        menuOptionsMessage += "3. Return a book.\n";
         menuOptionsMessage += "X. Exit Program.\n";
 
         this._library = new Library();
@@ -23,25 +24,19 @@ class Menu {
         displayMenuOptions();
     }
 
-    private int readInput() {
-        try {
-            System.out.println("Enter number here:");
+    private String readInput() {
+            System.out.println("Enter input here:");
             Scanner sc = new Scanner(System.in);
-            String input = sc.next();
+            String input = sc.nextLine();
             if(input.equals("x")) {
                 System.out.println("Goodbye!");
                 System.exit(0);
             }
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            System.out.println("Oops! That's not a number! Please try again.\n");
-            readInput();
-        }
-        return 0;
+            return input;
     }
 
     private void displayMenuOptions() {
-        int readInput;
+        String readInput;
         System.out.println(this.menuOptionsMessage);
 
         try {
@@ -58,40 +53,43 @@ class Menu {
         System.out.println("Welcome to Biblioteca! Your one-stop-shop for books in Bangalore!");
     }
 
-    void validateInput(int input) throws InvalidInputException {
-        int[] menuOptions = new int[] {0, 1, 2};
-        for (int option : menuOptions) {
-            if (input == option) {
+    void validateInput(String input) throws InvalidInputException {
+        String[] menuOptions = {"0", "1", "2", "3"};
+        for (String option : menuOptions) {
+            if (input.equals(option)) {
                 return;
             }
         }
         throw new InvalidInputException();
     }
 
-    private void selectOption(int input) {
-        switch (input) {
-            case 1:
-                printBookList(_library.getAllBooks());
-                break;
-            case 2:
-                displayCheckOutBook();
-                break;
-
+    private void selectOption(String input) {
+        if ("1".equals(input)) {
+            printBookList(_library.getAllBooks());
+        } else if ("2".equals(input)) {
+            displayCheckOutBook();
+        } else if ("3".equals(input)){
+            displayReturnOption();
         }
         displayMenuOptions();
     }
 
+    private void displayReturnOption() {
+        System.out.println("Please enter the title of the book you would like to return.");
+        String input = readInput();
+        _library.returnBook(input);
+    }
+
     private void displayCheckOutBook() {
         System.out.println("Here is a list of available books:\n\n");
-        printBookList(_library.getAllBooks());
-        int option = readInput();
-        Book checkedOutBook = _library.getBook(option);
-        _library.checkOutBook(checkedOutBook);
-        System.out.println("Book #: " + option + " has been successfully checked out.");
+        printBookList(_library.getAvailableBooks());
+        String option = readInput();
+        String result = _library.checkOutBook(option);
+        System.out.println(result);
     }
 
     private void printBookList(ArrayList<Book> books) {
-        System.out.printf("%-35s %-25s %-35s \n\n", "Title", "Author", "Publication Date");
+        System.out.printf("%-5s %-35s %-25s %-35s \n\n", "", "Title", "Author", "Publication Date");
         for (Book book : books) {
             System.out.printf("%-5s %-35s %-25s %-35s \n", books.indexOf(book) + ".", book.getTitle(), book.getAuthor(), book.getPublicationDate());
         }

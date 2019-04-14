@@ -25,11 +25,36 @@ public class Library {
         this.welcomeMessage = message;
     }
 
-    public void checkOutBook(Book book) {
-        books.remove(book);
+    public String checkOutBook(String bookTitle) {
+
+        for(Book book: books) {
+            if (book.getTitle().equals(bookTitle) && !book.isCheckedOut()){
+                book.setCheckedOut();
+                return "Thank you! You have successfully checked out '" + book.getTitle() + "'";
+            }
+        }
+        return "Sorry, this book is not available.";
     }
 
     public Book getBook(int i) {
         return books.get(i);
+    }
+
+    public ArrayList<Book> getAvailableBooks() {
+        ArrayList<Book> availableBooks = new ArrayList<Book>();
+        for (Book book: books) {
+            if (!book.isCheckedOut()){
+                availableBooks.add(book);
+            }
+        }
+        return availableBooks;
+    }
+
+    public void returnBook(String bookReturn) {
+        for(Book book : books){
+            if (book.getTitle().equals(bookReturn)) {
+                book.setReturned();
+            }
+        }
     }
 }
