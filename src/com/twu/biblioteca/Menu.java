@@ -26,7 +26,6 @@ class Menu {
     }
 
     private String readInput() {
-        //TODO: Change number to input
             System.out.println("Enter number here:");
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
