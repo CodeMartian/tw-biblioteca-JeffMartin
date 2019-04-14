@@ -13,6 +13,7 @@ class Menu {
         this.menuOptionsMessage = "Menu:\n\n";
         menuOptionsMessage += "1. Display a list of all books.\n";
         menuOptionsMessage += "2. Checkout a book.\n";
+        menuOptionsMessage += "3. Return a book.\n";
         menuOptionsMessage += "X. Exit Program.\n";
 
         this._library = new Library();
@@ -24,7 +25,7 @@ class Menu {
     }
 
     private String readInput() {
-            System.out.println("Enter number here:");
+            System.out.println("Enter input here:");
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
             if(input.equals("x")) {
@@ -53,7 +54,7 @@ class Menu {
     }
 
     void validateInput(String input) throws InvalidInputException {
-        String[] menuOptions = {"0", "1", "2"};
+        String[] menuOptions = {"0", "1", "2", "3"};
         for (String option : menuOptions) {
             if (input.equals(option)) {
                 return;
@@ -67,15 +68,22 @@ class Menu {
             printBookList(_library.getAllBooks());
         } else if ("2".equals(input)) {
             displayCheckOutBook();
+        } else if ("3".equals(input)){
+            displayReturnOption();
         }
         displayMenuOptions();
     }
 
+    private void displayReturnOption() {
+        System.out.println("Please enter the title of the book you would like to return.");
+        String input = readInput();
+        _library.returnBook(input);
+    }
+
     private void displayCheckOutBook() {
         System.out.println("Here is a list of available books:\n\n");
-        printBookList(_library.getAllBooks());
+        printBookList(_library.getAvailableBooks());
         String option = readInput();
-        //TODO: Get book by title, not by index.
         String result = _library.checkOutBook(option);
         System.out.println(result);
     }
@@ -83,7 +91,6 @@ class Menu {
     private void printBookList(ArrayList<Book> books) {
         System.out.printf("%-5s %-35s %-25s %-35s \n\n", "", "Title", "Author", "Publication Date");
         for (Book book : books) {
-            //TODO: Remove index selectors.
             System.out.printf("%-5s %-35s %-25s %-35s \n", books.indexOf(book) + ".", book.getTitle(), book.getAuthor(), book.getPublicationDate());
         }
     }

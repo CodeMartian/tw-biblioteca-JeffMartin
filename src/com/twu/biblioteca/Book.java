@@ -23,4 +23,8 @@ public class Book {
     public void setCheckedOut() {
         this.checkedOut = true;
     }
+
+    public void setReturned() {
+        this.checkedOut = false;
+    }
 }
