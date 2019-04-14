@@ -120,4 +120,12 @@ public class LibraryTests {
         assertThat(result, is("Thank you! You have successfully returned 'Seven Languages in Seven Weeks'"));
     }
 
+    @Test
+    public void returnBookShouldReturnFailureMessage() {
+        //Act
+        String result = library.returnBook("You fool! You can't return a book.");
+        //Assert
+        assertThat(result , is("I'm sorry. The book you entered does not belong to this library."));
+    }
+
 }

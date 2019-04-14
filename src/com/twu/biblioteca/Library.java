@@ -57,6 +57,6 @@ public class Library {
                 return "Thank you! You have successfully returned '" + bookReturn + "'";
             }
         }
-        return "";
+        return "I'm sorry. The book you entered does not belong to this library.";
     }
 }
