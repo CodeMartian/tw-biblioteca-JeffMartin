@@ -112,4 +112,12 @@ public class LibraryTests {
         assertThat(results.get(2).getTitle(), is("Ubuntu Kung Fu"));
     }
 
+    @Test
+    public void returnBookShouldReturnSuccessMessage() {
+        //Act
+        String result = library.returnBook("Seven Languages in Seven Weeks");
+        //Assert
+        assertThat(result, is("Thank you! You have successfully returned 'Seven Languages in Seven Weeks'"));
+    }
+
 }

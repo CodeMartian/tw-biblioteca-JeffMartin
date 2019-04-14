@@ -50,11 +50,13 @@ public class Library {
         return availableBooks;
     }
 
-    public void returnBook(String bookReturn) {
+    public String returnBook(String bookReturn) {
         for(Book book : books){
             if (book.getTitle().equals(bookReturn)) {
                 book.setReturned();
+                return "Thank you! You have successfully returned '" + bookReturn + "'";
             }
         }
+        return "";
     }
 }

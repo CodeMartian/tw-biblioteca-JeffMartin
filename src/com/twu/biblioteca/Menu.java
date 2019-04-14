@@ -77,7 +77,7 @@ class Menu {
     private void displayReturnOption() {
         System.out.println("Please enter the title of the book you would like to return.");
         String input = readInput();
-        _library.returnBook(input);
+        System.out.println(_library.returnBook(input));
     }
 
     private void displayCheckOutBook() {
