@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 class Menu {
     private String menuOptionsMessage;
-    private Library _library;
+    private Library library;
 
     Menu() {
         this.menuOptionsMessage = "Menu:\n\n";
@@ -16,7 +16,7 @@ class Menu {
         menuOptionsMessage += "3. Return a book.\n";
         menuOptionsMessage += "X. Exit Program.\n";
 
-        this._library = new Library();
+        this.library = new Library();
     }
 
     void start() {
@@ -29,18 +29,20 @@ class Menu {
             Scanner sc = new Scanner(System.in);
             String input = sc.nextLine();
             if(input.equals("x")) {
-                System.out.println("Goodbye!");
-                System.exit(0);
+                quit();
             }
             return input;
     }
 
-    private void displayMenuOptions() {
-        String readInput;
-        System.out.println(this.menuOptionsMessage);
+    private void quit() {
+        System.out.println("Goodbye!");
+        System.exit(0);
+    }
 
+    private void displayMenuOptions() {
+        System.out.println(this.menuOptionsMessage);
+        String readInput = readInput();
         try {
-            readInput = readInput();
             validateInput(readInput);
             selectOption(readInput);
         } catch (InvalidInputException e) {
@@ -65,7 +67,7 @@ class Menu {
 
     private void selectOption(String input) {
         if ("1".equals(input)) {
-            printBookList(_library.getAllBooks());
+            printBookList(library.getAllBooks());
         } else if ("2".equals(input)) {
             displayCheckOutBook();
         } else if ("3".equals(input)){
@@ -76,16 +78,13 @@ class Menu {
 
     private void displayReturnOption() {
         System.out.println("Please enter the title of the book you would like to return.");
-        String input = readInput();
-        System.out.println(_library.returnBook(input));
+        System.out.println(library.returnBook(readInput()));
     }
 
     private void displayCheckOutBook() {
         System.out.println("Here is a list of available books:\n\n");
-        printBookList(_library.getAvailableBooks());
-        String option = readInput();
-        String result = _library.checkOutBook(option);
-        System.out.println(result);
+        printBookList(library.getAvailableBooks());
+        System.out.println(library.checkOutBook(readInput()));
     }
 
     private void printBookList(ArrayList<Book> books) {

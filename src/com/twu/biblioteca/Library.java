@@ -3,7 +3,6 @@ package com.twu.biblioteca;
 import java.util.ArrayList;
 
 public class Library {
-    private String welcomeMessage;
     private ArrayList<Book> books;
 
     public Library() {
@@ -13,31 +12,19 @@ public class Library {
         books.add(new Book("Ubuntu Kung Fu", "Keir Thomas", "2008"));
     }
 
-    public String getWelcomeMessage() {
-        return welcomeMessage;
-    }
-
     public ArrayList<Book> getAllBooks() {
         return books;
-    }
-
-    public void setWelcomeMessage(String message) {
-        this.welcomeMessage = message;
     }
 
     public String checkOutBook(String bookTitle) {
 
         for(Book book: books) {
-            if (book.getTitle().equals(bookTitle) && !book.isCheckedOut()){
+            if (book.getTitle().equals(bookTitle) && !book.isCheckedOut()) {
                 book.setCheckedOut();
                 return "Thank you! You have successfully checked out '" + book.getTitle() + "'";
             }
         }
         return "Sorry, this book is not available.";
-    }
-
-    public Book getBook(int i) {
-        return books.get(i);
     }
 
     public ArrayList<Book> getAvailableBooks() {

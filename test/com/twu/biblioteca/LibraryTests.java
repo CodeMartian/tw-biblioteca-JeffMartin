@@ -18,15 +18,15 @@ public class LibraryTests {
         this.library = new Library();
     }
 
-    @Test
-    public void welcomeMessageShouldReturnMessage() {
-        //Arrange
-        String message = "Hello World!";
-        //Act
-        library.setWelcomeMessage(message);
-        //Assert
-        assertEquals("Hello World!", library.getWelcomeMessage());
-    }
+//    @Test
+//    public void welcomeMessageShouldReturnMessage() {
+//        //Arrange
+//        String message = "Hello World!";
+//        //Act
+//        library.setWelcomeMessage(message);
+//        //Assert
+//        assertEquals("Hello World!", library.getWelcomeMessage());
+//    }
 
     @Test
     public void getAllBooksShouldReturnListOfBooks() {
@@ -64,24 +64,14 @@ public class LibraryTests {
         assertThat(results.get(1).getTitle(), is("Ubuntu Kung Fu"));
     }
 
-    @Test
-    public void getBookShouldReturnBook() {
-        //Act
-        Book result = library.getBook(0);
-        //Assert
-        assertThat(result.getTitle(), is("Seven Languages in Seven Weeks"));
-        assertThat(result.getAuthor(), is("Bruce A. Tate"));
-        assertThat(result.getPublicationDate(), is("2010"));
 
-    }
-
-    @Test
-    public void checkOutBookShouldMarkBookAsCheckedOut() {
-        //Act
-        library.checkOutBook("Seven Languages in Seven Weeks");
-        //Assert
-        assertThat(library.getBook(0).isCheckedOut(), is(true));
-    }
+//    @Test
+//    public void checkOutBookShouldMarkBookAsCheckedOut() {
+//        //Act
+//        String result = library.checkOutBook("Seven Languages in Seven Weeks");
+//        //Assert
+//        assertThat(), is(true));
+//    }
 
     @Test
     public void checkOutBookShouldReturnSuccessMessage() {
@@ -128,4 +118,8 @@ public class LibraryTests {
         assertThat(result , is("I'm sorry. The book you entered does not belong to this library."));
     }
 
+    @Test
+    public void getAllMoviesShouldReturnListOfMovies() {
+
+    }
 }
