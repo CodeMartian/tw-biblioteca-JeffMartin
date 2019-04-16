@@ -2,14 +2,17 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.exceptions.InvalidInputException;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 class Menu {
     private String menuOptionsMessage;
     private Library _library;
+    private PrintStream printStream;
+    private Scanner scanner;
 
-    Menu() {
+    Menu(PrintStream printStream, Scanner scanner) {
         this.menuOptionsMessage = "Menu:\n\n";
         menuOptionsMessage += "1. Display a list of all books.\n";
         menuOptionsMessage += "2. Checkout a book.\n";
@@ -17,6 +20,8 @@ class Menu {
         menuOptionsMessage += "X. Exit Program.\n";
 
         this._library = new Library();
+        this.printStream = printStream;
+        this.scanner = scanner;
     }
 
     void start() {
@@ -25,11 +30,10 @@ class Menu {
     }
 
     private String readInput() {
-            System.out.println("Enter input here:");
-            Scanner sc = new Scanner(System.in);
-            String input = sc.nextLine();
+            printStream.println("Enter input here:");
+            String input = scanner.nextLine();
             if(input.equals("x")) {
-                System.out.println("Goodbye!");
+                printStream.println("Goodbye!");
                 System.exit(0);
             }
             return input;
@@ -37,20 +41,20 @@ class Menu {
 
     private void displayMenuOptions() {
         String readInput;
-        System.out.println(this.menuOptionsMessage);
+        printStream.println(this.menuOptionsMessage);
 
         try {
             readInput = readInput();
             validateInput(readInput);
             selectOption(readInput);
         } catch (InvalidInputException e) {
-            System.out.println(e.getMessage());
+            printStream.println(e.getMessage());
             displayMenuOptions();
         }
     }
 
-    private void displayWelcomeMessage() {
-        System.out.println("Welcome to Biblioteca! Your one-stop-shop for books in Bangalore!");
+    public void displayWelcomeMessage() {
+        printStream.println("Welcome to Biblioteca! Your one-stop-shop for books in Bangalore!");
     }
 
     void validateInput(String input) throws InvalidInputException {
@@ -75,23 +79,23 @@ class Menu {
     }
 
     private void displayReturnOption() {
-        System.out.println("Please enter the title of the book you would like to return.");
+        printStream.println("Please enter the title of the book you would like to return.");
         String input = readInput();
-        System.out.println(_library.returnBook(input));
+        printStream.println(_library.returnBook(input));
     }
 
     private void displayCheckOutBook() {
-        System.out.println("Here is a list of available books:\n\n");
+        printStream.println("Here is a list of available books:\n\n");
         printBookList(_library.getAvailableBooks());
         String option = readInput();
         String result = _library.checkOutBook(option);
-        System.out.println(result);
+        printStream.println(result);
     }
 
     private void printBookList(ArrayList<Book> books) {
-        System.out.printf("%-5s %-35s %-25s %-35s \n\n", "", "Title", "Author", "Publication Date");
+        printStream.printf("%-5s %-35s %-25s %-35s \n\n", "", "Title", "Author", "Publication Date");
         for (Book book : books) {
-            System.out.printf("%-5s %-35s %-25s %-35s \n", books.indexOf(book) + ".", book.getTitle(), book.getAuthor(), book.getPublicationDate());
+            printStream.printf("%-5s %-35s %-25s %-35s \n", books.indexOf(book) + ".", book.getTitle(), book.getAuthor(), book.getPublicationDate());
         }
     }
 }
