@@ -2,17 +2,18 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.exceptions.InvalidInputException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 class Menu {
     private String menuOptionsMessage;
     private Library _library;
     private PrintStream printStream;
-    private Scanner scanner;
+    private BufferedReader bufferedReader;
 
-    Menu(PrintStream printStream, Scanner scanner) {
+    Menu(PrintStream printStream, BufferedReader bufferedReader) {
         this.menuOptionsMessage = "Menu:\n\n";
         menuOptionsMessage += "1. Display a list of all books.\n";
         menuOptionsMessage += "2. Checkout a book.\n";
@@ -21,17 +22,17 @@ class Menu {
 
         this._library = new Library();
         this.printStream = printStream;
-        this.scanner = scanner;
+        this.bufferedReader = bufferedReader;
     }
 
-    void start() {
+    void start() throws IOException {
         displayWelcomeMessage();
         displayMenuOptions();
     }
 
-    private String readInput() {
+    private String readInput() throws IOException {
             printStream.println("Enter input here:");
-            String input = scanner.nextLine();
+            String input = bufferedReader.readLine();
             if(input.equals("x")) {
                 printStream.println("Goodbye!");
                 System.exit(0);
@@ -39,7 +40,7 @@ class Menu {
             return input;
     }
 
-    private void displayMenuOptions() {
+    private void displayMenuOptions() throws IOException {
         String readInput;
         printStream.println(this.menuOptionsMessage);
 
@@ -67,7 +68,7 @@ class Menu {
         throw new InvalidInputException();
     }
 
-    private void selectOption(String input) {
+    private void selectOption(String input) throws IOException {
         if ("1".equals(input)) {
             printBookList(_library.getAllBooks());
         } else if ("2".equals(input)) {
@@ -78,13 +79,13 @@ class Menu {
         displayMenuOptions();
     }
 
-    private void displayReturnOption() {
+    private void displayReturnOption() throws IOException {
         printStream.println("Please enter the title of the book you would like to return.");
         String input = readInput();
         printStream.println(_library.returnBook(input));
     }
 
-    private void displayCheckOutBook() {
+    private void displayCheckOutBook() throws IOException {
         printStream.println("Here is a list of available books:\n\n");
         printBookList(_library.getAvailableBooks());
         String option = readInput();
