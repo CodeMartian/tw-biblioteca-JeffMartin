@@ -4,3 +4,5 @@
 **/.idea/dictionaries
 **/.idea/vcs.xml
 **/.idea/jsLibraryMappings.xml
+**/out
+.DS_Store

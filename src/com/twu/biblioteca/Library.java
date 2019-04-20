@@ -5,12 +5,18 @@ import java.util.ArrayList;
 public class Library {
     private String welcomeMessage;
     private ArrayList<Book> books;
+    private ArrayList<Movie> movies;
 
     public Library() {
         books = new ArrayList<Book>();
         books.add(new Book("Seven Languages in Seven Weeks", "Bruce A. Tate", "2010"));
         books.add(new Book("Testing Extreme Programming", "Lisa Crispin", "2003"));
         books.add(new Book("Ubuntu Kung Fu", "Keir Thomas", "2008"));
+
+        movies = new ArrayList<Movie>();
+        movies.add(new Movie("Fantastic Beasts and Where To Find Them"));
+        movies.add(new Movie("Mary Poppins"));
+        movies.add(new Movie("Mortal Engines"));
     }
 
     public String getWelcomeMessage() {
@@ -58,5 +64,9 @@ public class Library {
             }
         }
         return "I'm sorry. The book you entered does not belong to this library.";
+    }
+
+    public ArrayList<Movie> getAllMovies() {
+        return movies;
     }
 }

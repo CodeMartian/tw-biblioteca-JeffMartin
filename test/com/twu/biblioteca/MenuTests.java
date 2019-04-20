@@ -3,9 +3,11 @@ package com.twu.biblioteca;
 import com.twu.biblioteca.exceptions.InvalidInputException;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.io.BufferedReader;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import static org.mockito.Mockito.*;
 
@@ -39,4 +41,21 @@ public class MenuTests {
         //Act
         menu.validateInput("Jeff");
     }
+
+//    @Test
+//    public void printMovieListShouldPrintListOfMovies() {
+//        //Arrange
+//        Movie mockMovie = mock(Movie.class);
+//        when(mockMovie).
+//        ArrayList<Movie> movies = new ArrayList<Movie>();
+//        movies.add()
+//
+//        menu.printMovieList(movies);
+//        verify(mockPrintStream).printf("%-10s", "Movies");
+//        verify(mockPrintStream).printf("%-40s", "Fantastic Beasts and Where To Find Them");
+//        verify(mockPrintStream).printf("%-40s", "Mary Poppins");
+//        verify(mockPrintStream).printf("%-40s", "Mortal Engines");
+//
+//
+//    }
 }

@@ -18,6 +18,7 @@ class Menu {
         menuOptionsMessage += "1. Display a list of all books.\n";
         menuOptionsMessage += "2. Checkout a book.\n";
         menuOptionsMessage += "3. Return a book.\n";
+        menuOptionsMessage += "4. Display a list of all movies.\n";
         menuOptionsMessage += "X. Exit Program.\n";
 
         this._library = new Library();
@@ -59,7 +60,7 @@ class Menu {
     }
 
     void validateInput(String input) throws InvalidInputException {
-        String[] menuOptions = {"0", "1", "2", "3"};
+        String[] menuOptions = {"0", "1", "2", "3", "4"};
         for (String option : menuOptions) {
             if (input.equals(option)) {
                 return;
@@ -75,6 +76,8 @@ class Menu {
             displayCheckOutBook();
         } else if ("3".equals(input)){
             displayReturnOption();
+        } else if ("4".equals(input)) {
+            printMovieList(_library.getAllMovies());
         }
         displayMenuOptions();
     }
@@ -94,9 +97,16 @@ class Menu {
     }
 
     private void printBookList(ArrayList<Book> books) {
-        printStream.printf("%-5s %-35s %-25s %-35s \n\n", "", "Title", "Author", "Publication Date");
+        printStream.printf("%-35s %-25s %-35s \n\n", "Title", "Author", "Publication Date");
         for (Book book : books) {
-            printStream.printf("%-5s %-35s %-25s %-35s \n", books.indexOf(book) + ".", book.getTitle(), book.getAuthor(), book.getPublicationDate());
+            printStream.printf("%-35s %-25s %-35s \n", book.getTitle(), book.getAuthor(), book.getPublicationDate());
+        }
+    }
+
+    private void printMovieList(ArrayList<Movie> movies) {
+        printStream.printf("%-10s \n\n", "Movies");
+        for (Movie movie : movies) {
+            printStream.printf("%-40s \n", movie.getTitle());
         }
     }
 }

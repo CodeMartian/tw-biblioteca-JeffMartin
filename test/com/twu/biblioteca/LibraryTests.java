@@ -1,12 +1,14 @@
 package com.twu.biblioteca;
 
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 
@@ -126,6 +128,18 @@ public class LibraryTests {
         String result = library.returnBook("You fool! You can't return a book.");
         //Assert
         assertThat(result , is("I'm sorry. The book you entered does not belong to this library."));
+    }
+
+    @Test
+    public void getAllMoviesShouldReturnListOfMovies() {
+        //Act
+        ArrayList<Movie> results = library.getAllMovies();
+
+        //Assert
+        assertThat(results, hasSize(3));
+        assertThat(results.get(0).getTitle(), is("Fantastic Beasts and Where To Find Them"));
+        assertThat(results.get(1).getTitle(), is("Mary Poppins"));
+        assertThat(results.get(2).getTitle(), is("Mortal Engines"));
     }
 
 }
