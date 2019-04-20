@@ -69,4 +69,26 @@ public class Library {
     public ArrayList<Movie> getAllMovies() {
         return movies;
     }
+
+    public String checkOutMovie(String title) {
+        for(Movie movie : movies) {
+            if(movie.getTitle().equals(title)){
+                if(movie.setCheckedOut()){
+                    return "Thank you! You have successfully checked out '" + title + "'";
+                }
+            }
+        }
+        return "I'm sorry. The book you entered does not belong to this library.";
+    }
+
+    public ArrayList<Movie> getAvailableMovies() {
+        ArrayList<Movie> availableMovies = new ArrayList<Movie>();
+
+        for(Movie movie : movies) {
+            if(!movie.isCheckedOut()) {
+                availableMovies.add(movie);
+            }
+        }
+        return availableMovies;
+    }
 }

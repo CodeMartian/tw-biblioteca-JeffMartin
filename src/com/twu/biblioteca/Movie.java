@@ -16,4 +16,11 @@ public class Movie {
     public boolean isCheckedOut() {
         return this.isCheckedOut;
     }
+
+    public boolean setCheckedOut() {
+        if (this.isCheckedOut) {
+            return false;
+        }
+        return this.isCheckedOut = true;
+    }
 }

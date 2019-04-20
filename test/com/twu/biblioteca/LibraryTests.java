@@ -77,13 +77,13 @@ public class LibraryTests {
 
     }
 
-    @Test
-    public void checkOutBookShouldMarkBookAsCheckedOut() {
-        //Act
-        library.checkOutBook("Seven Languages in Seven Weeks");
-        //Assert
-        assertThat(library.getBook(0).isCheckedOut(), is(true));
-    }
+//    @Test
+//    public void checkOutBookShouldMarkBookAsCheckedOut() {
+//        //Act
+//        library.checkOutBook("Seven Languages in Seven Weeks");
+//        //Assert
+//        assertThat(library.getBook(0).isCheckedOut(), is(true));
+//    }
 
     @Test
     public void checkOutBookShouldReturnSuccessMessage() {
@@ -140,6 +140,25 @@ public class LibraryTests {
         assertThat(results.get(0).getTitle(), is("Fantastic Beasts and Where To Find Them"));
         assertThat(results.get(1).getTitle(), is("Mary Poppins"));
         assertThat(results.get(2).getTitle(), is("Mortal Engines"));
+    }
+
+    @Test
+    public void getAvailableMoviesShouldReturnListOfAvailableMovies() {
+        library.checkOutMovie("Fantastic Beasts and Where To Find Them");
+        ArrayList<Movie> results = library.getAvailableMovies();
+
+        assertThat(results, hasSize(2));
+        assertThat(results.get(0).getTitle(), is("Mary Poppins"));
+        assertThat(results.get(1).getTitle(), is("Mortal Engines"));
+    }
+
+    @Test
+    public void checkOutMovieShouldReturnSuccessMessage() {
+        //Act
+        String result = library.checkOutMovie("Fantastic Beasts and Where To Find Them");
+
+        //Assert
+        assertThat(result, is("Thank you! You have successfully checked out 'Fantastic Beasts and Where To Find Them'"));
     }
 
 }

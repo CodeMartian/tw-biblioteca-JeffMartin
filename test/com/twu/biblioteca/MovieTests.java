@@ -24,4 +24,23 @@ public class MovieTests {
 
         assertThat(isCheckedOut, is(false));
     }
+
+    @Test
+    public void checkOutMovieShouldReturnMovieCheckedOut() {
+        Movie movie = new Movie("Test");
+
+        boolean result = movie.setCheckedOut();
+
+        assertThat(result, is(true));
+    }
+
+    @Test
+    public void checkOutAlreadyCheckedOutMovieShouldReturnFalse() {
+        Movie movie = new Movie("Test");
+
+        movie.setCheckedOut();
+        boolean result = movie.setCheckedOut();
+
+        assertThat(result, is(false));
+    }
 }

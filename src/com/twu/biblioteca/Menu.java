@@ -19,6 +19,7 @@ class Menu {
         menuOptionsMessage += "2. Checkout a book.\n";
         menuOptionsMessage += "3. Return a book.\n";
         menuOptionsMessage += "4. Display a list of all movies.\n";
+        menuOptionsMessage += "5. Check out a movie.\n";
         menuOptionsMessage += "X. Exit Program.\n";
 
         this._library = new Library();
@@ -60,7 +61,7 @@ class Menu {
     }
 
     void validateInput(String input) throws InvalidInputException {
-        String[] menuOptions = {"0", "1", "2", "3", "4"};
+        String[] menuOptions = {"0", "1", "2", "3", "4", "5"};
         for (String option : menuOptions) {
             if (input.equals(option)) {
                 return;
@@ -78,6 +79,8 @@ class Menu {
             displayReturnOption();
         } else if ("4".equals(input)) {
             printMovieList(_library.getAllMovies());
+        } else if ("5".equals(input)) {
+            displayCheckOutMovie();
         }
         displayMenuOptions();
     }
@@ -93,6 +96,14 @@ class Menu {
         printBookList(_library.getAvailableBooks());
         String option = readInput();
         String result = _library.checkOutBook(option);
+        printStream.println(result);
+    }
+
+    private void displayCheckOutMovie() throws IOException {
+        printStream.println("Here is a list of available movies:\n\n");
+        printMovieList(_library.getAvailableMovies());
+        String option = readInput();
+        String result = _library.checkOutMovie(option);
         printStream.println(result);
     }
 
