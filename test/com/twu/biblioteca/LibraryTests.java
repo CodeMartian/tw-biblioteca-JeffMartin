@@ -21,19 +21,9 @@ public class LibraryTests {
     }
 
     @Test
-    public void welcomeMessageShouldReturnMessage() {
-        //Arrange
-        String message = "Hello World!";
-        //Act
-        library.setWelcomeMessage(message);
-        //Assert
-        assertEquals("Hello World!", library.getWelcomeMessage());
-    }
-
-    @Test
     public void getAllBooksShouldReturnListOfBooks() {
         //Act
-        ArrayList<Book> results = library.getAllBooks();
+        ArrayList<Book> results = library.getAvailableBooks();
         //Assert
         assertThat(results.get(0).getTitle(), is("Seven Languages in Seven Weeks"));
         assertThat(results.get(0).getAuthor(), is("Bruce A. Tate"));
@@ -49,7 +39,7 @@ public class LibraryTests {
     @Test
     public void getAllBooksShouldReturnListOfAllBooks() {
         //Act
-        ArrayList<Book> results = library.getAllBooks();
+        ArrayList<Book> results = library.getAvailableBooks();
         //Assert
         assertThat(results.size(), is(3));
     }
@@ -76,14 +66,6 @@ public class LibraryTests {
         assertThat(result.getPublicationDate(), is("2010"));
 
     }
-
-//    @Test
-//    public void checkOutBookShouldMarkBookAsCheckedOut() {
-//        //Act
-//        library.checkOutBook("Seven Languages in Seven Weeks");
-//        //Assert
-//        assertThat(library.getBook(0).isCheckedOut(), is(true));
-//    }
 
     @Test
     public void checkOutBookShouldReturnSuccessMessage() {
@@ -116,6 +98,8 @@ public class LibraryTests {
 
     @Test
     public void returnBookShouldReturnSuccessMessage() {
+        //Arrange
+        library.checkOutBook("Seven Languages in Seven Weeks");
         //Act
         String result = library.returnBook("Seven Languages in Seven Weeks");
         //Assert
@@ -133,7 +117,7 @@ public class LibraryTests {
     @Test
     public void getAllMoviesShouldReturnListOfMovies() {
         //Act
-        ArrayList<Movie> results = library.getAllMovies();
+        ArrayList<Movie> results = library.getAvailableMovies();
 
         //Assert
         assertThat(results, hasSize(3));

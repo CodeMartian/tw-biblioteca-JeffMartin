@@ -72,13 +72,13 @@ class Menu {
 
     private void selectOption(String input) throws IOException {
         if ("1".equals(input)) {
-            printBookList(_library.getAllBooks());
+            printBookList(_library.getAvailableBooks());
         } else if ("2".equals(input)) {
             displayCheckOutBook();
         } else if ("3".equals(input)){
             displayReturnOption();
         } else if ("4".equals(input)) {
-            printMovieList(_library.getAllMovies());
+            printMovieList(_library.getAvailableMovies());
         } else if ("5".equals(input)) {
             displayCheckOutMovie();
         }

@@ -3,39 +3,31 @@ package com.twu.biblioteca;
 import java.util.ArrayList;
 
 public class Library {
-    private String welcomeMessage;
-    private ArrayList<Book> books;
-    private ArrayList<Movie> movies;
+    private ArrayList<Book> checkedInBooks;
+    private ArrayList<Book> checkedOutBooks;
+    private ArrayList<Movie> checkedInMovies;
+    private ArrayList<Movie> checkedOutMovies;
 
     public Library() {
-        books = new ArrayList<Book>();
-        books.add(new Book("Seven Languages in Seven Weeks", "Bruce A. Tate", "2010"));
-        books.add(new Book("Testing Extreme Programming", "Lisa Crispin", "2003"));
-        books.add(new Book("Ubuntu Kung Fu", "Keir Thomas", "2008"));
+        checkedInBooks = new ArrayList<Book>();
+        checkedOutBooks = new ArrayList<Book>();
+        checkedInBooks.add(new Book("Seven Languages in Seven Weeks", "Bruce A. Tate", "2010"));
+        checkedInBooks.add(new Book("Testing Extreme Programming", "Lisa Crispin", "2003"));
+        checkedInBooks.add(new Book("Ubuntu Kung Fu", "Keir Thomas", "2008"));
 
-        movies = new ArrayList<Movie>();
-        movies.add(new Movie("Fantastic Beasts and Where To Find Them"));
-        movies.add(new Movie("Mary Poppins"));
-        movies.add(new Movie("Mortal Engines"));
-    }
-
-    public String getWelcomeMessage() {
-        return welcomeMessage;
-    }
-
-    public ArrayList<Book> getAllBooks() {
-        return books;
-    }
-
-    public void setWelcomeMessage(String message) {
-        this.welcomeMessage = message;
+        checkedInMovies = new ArrayList<Movie>();
+        checkedOutMovies = new ArrayList<Movie>();
+        checkedInMovies.add(new Movie("Fantastic Beasts and Where To Find Them"));
+        checkedInMovies.add(new Movie("Mary Poppins"));
+        checkedInMovies.add(new Movie("Mortal Engines"));
     }
 
     public String checkOutBook(String bookTitle) {
 
-        for(Book book: books) {
-            if (book.getTitle().equals(bookTitle) && !book.isCheckedOut()){
-                book.setCheckedOut();
+        for(Book book: checkedInBooks) {
+            if (book.getTitle().equals(bookTitle)){
+                checkedOutBooks.add(book);
+                checkedInBooks.remove(book);
                 return "Thank you! You have successfully checked out '" + book.getTitle() + "'";
             }
         }
@@ -43,52 +35,36 @@ public class Library {
     }
 
     public Book getBook(int i) {
-        return books.get(i);
+        return checkedInBooks.get(i);
     }
 
     public ArrayList<Book> getAvailableBooks() {
-        ArrayList<Book> availableBooks = new ArrayList<Book>();
-        for (Book book: books) {
-            if (!book.isCheckedOut()){
-                availableBooks.add(book);
-            }
-        }
-        return availableBooks;
+        return checkedInBooks;
     }
 
     public String returnBook(String bookReturn) {
-        for(Book book : books){
+        for(Book book : checkedOutBooks){
             if (book.getTitle().equals(bookReturn)) {
-                book.setReturned();
+                checkedInBooks.add(book);
+                checkedOutBooks.remove(book);
                 return "Thank you! You have successfully returned '" + bookReturn + "'";
             }
         }
         return "I'm sorry. The book you entered does not belong to this library.";
     }
 
-    public ArrayList<Movie> getAllMovies() {
-        return movies;
-    }
-
     public String checkOutMovie(String title) {
-        for(Movie movie : movies) {
+        for(Movie movie : checkedInMovies) {
             if(movie.getTitle().equals(title)){
-                if(movie.setCheckedOut()){
-                    return "Thank you! You have successfully checked out '" + title + "'";
-                }
+                checkedOutMovies.add(movie);
+                checkedInMovies.remove(movie);
+                return "Thank you! You have successfully checked out '" + title + "'";
             }
         }
         return "I'm sorry. The book you entered does not belong to this library.";
     }
 
     public ArrayList<Movie> getAvailableMovies() {
-        ArrayList<Movie> availableMovies = new ArrayList<Movie>();
-
-        for(Movie movie : movies) {
-            if(!movie.isCheckedOut()) {
-                availableMovies.add(movie);
-            }
-        }
-        return availableMovies;
+        return checkedInMovies;
     }
 }
